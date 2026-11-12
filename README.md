@@ -35,6 +35,25 @@ jobs:
 
 That scans `composer.lock` and fails the job on any known vulnerability.
 
+### Report to your phpwarden dashboard
+
+```yaml
+      - uses: oroma-alfred/phpwarden-action@v1
+        with:
+          report-url: https://app.phpwarden.io/v1/reports
+          report-token: ${{ secrets.PHPWARDEN_TOKEN }}
+```
+
+Create a project in the dashboard, copy its ingest token into a repository
+secret named `PHPWARDEN_TOKEN`. Every run then shows up in the project's
+history, and newly exploited CVEs trigger alerts.
+
+Outside GitHub Actions, the CLI does the same:
+
+```bash
+phpwarden deps composer.lock --report-to https://app.phpwarden.io/v1/reports --report-token <token>
+```
+
 ### Only fail on what's actually being exploited
 
 ```yaml
@@ -70,19 +89,6 @@ jobs:
           upload-sarif: "true"
           fail-on: never             # let code scanning gate the PR instead
 ```
-
-### Report to your phpwarden dashboard
-
-```yaml
-      - uses: oroma-alfred/phpwarden-action@v1
-        with:
-          report-url: https://app.phpwarden.io/v1/reports
-          report-token: ${{ secrets.PHPWARDEN_TOKEN }}
-```
-
-Create a project in the dashboard, copy its ingest token into a repository
-secret named `PHPWARDEN_TOKEN`. Every run then shows up in the project's
-history, and newly exploited CVEs trigger alerts.
 
 ## Inputs
 
