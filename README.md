@@ -46,7 +46,8 @@ That scans `composer.lock` and fails the job on any known vulnerability.
 
 Create a project in the dashboard, copy its ingest token into a repository
 secret named `PHPWARDEN_TOKEN`. Every run then shows up in the project's
-history, and newly exploited CVEs trigger alerts.
+history, and findings that become known-exploited are marked (email and
+webhook alerts on Pro and Team).
 
 Outside GitHub Actions, the CLI does the same:
 
@@ -141,13 +142,14 @@ phpwarden: 18 finding(s), 0 actively exploited; fail-on=high -> FAIL
 1. Installs the [`phpwarden`](https://pypi.org/project/phpwarden/) CLI into an
    isolated venv on the runner (pure Python, no native deps, ~1 s).
 2. Runs `phpwarden deps` / `wordpress` / `scan` with `--json` using the
-   bundled advisory feed (NVD + OSV + FriendsOfPHP + Wordfence, enriched with
-   CISA KEV and EPSS).
+   bundled advisory feed (OSV, NVD, FriendsOfPHP and the php-src release notes,
+   enriched with CISA KEV and EPSS).
 3. Writes the summary, annotations and SARIF; exits per `fail-on`.
 
-The engine and the community feed are Apache-2.0 and free. A
-[phpwarden subscription](https://phpwarden.io/#pricing) adds the maintained,
-hours-fresh feed, the dashboard, and the FPM runtime guard.
+The engine and the bundled feed are Apache-2.0 and free, with free weekly feed
+updates and a one-project dashboard. Pro and Team add the maintained feed
+(rebuilt twice a day), more projects, weekly live checks and alerts; see
+[pricing](https://phpwarden.io/#pricing).
 
 ## Versioning
 
