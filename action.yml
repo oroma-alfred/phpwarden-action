@@ -1,5 +1,5 @@
 name: "phpwarden — PHP vulnerability scan"
-description: "Scan composer.lock, WordPress and PHP for vulnerabilities ranked by exploitation (CISA KEV, EPSS). Fail on exploited; SARIF."
+description: "Scan composer.lock, WordPress and the PHP engine, ranked by exploitation (CISA KEV, then EPSS). PR annotations, SARIF."
 author: "phpwarden"
 branding:
   icon: "shield"
