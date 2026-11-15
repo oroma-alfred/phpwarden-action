@@ -15,6 +15,11 @@ fails on what matters, and you can see why without opening a log:
 - **SARIF** — optional upload to the GitHub Security tab (code scanning)
 - **Dashboard reporting** — optional; posts results to [phpwarden](https://phpwarden.io) for history and alerts
 
+This Action runs the dependency, WordPress and engine scans. The same CLI (phpwarden 2.5) can also scan your
+own PHP code (`phpwarden code`, whole-program, SARIF), check a live site (`phpwarden probe`), block exploits
+inside PHP (`phpwarden shield`) and rank Trivy results (`phpwarden assess --trivy`); see the
+[docs](https://phpwarden.io/docs).
+
 Zero dependencies, offline by default: the scanner ships with its own advisory
 feed and never sends your code or lockfile anywhere unless you set `report-url`.
 
